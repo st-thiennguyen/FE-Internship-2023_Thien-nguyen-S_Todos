@@ -1,8 +1,15 @@
 import React from 'react';
 import TodoItem from './TodoItem';
-import TodoItemModel from '../../models/todo-item';
+import TodoItemModel from '../../../models/todo-item';
 
-const Todo = (props: any) => {
+interface TodoComponentProps{
+  todos : TodoItemModel[],
+  handleCompleted : Function,
+  handleDelete : Function,
+  handleUpdateTask : Function
+}
+
+const Todo = (props: TodoComponentProps) => {
   return (
     <>
       <div className='todo-display'>

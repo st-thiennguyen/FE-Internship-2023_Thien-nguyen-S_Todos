@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
+import TodoItemModel from '../../../models/todo-item';
 
-const Filter = (props:any) => {
-  console.log("Rerender filter");
-  
+
+interface FilterComponentProps {
+  handleFilter : Function,
+  todos : TodoItemModel[]
+}
+
+const Filter = (props: FilterComponentProps) => {
   const [active, setActive] = useState('All');
 
-  const handleChangeActive = (e: React.MouseEvent) => {
-    const textContent = (e.target as HTMLElement).textContent ?? '';
-    setActive(textContent);
-    if(textContent === 'All'){
+  const handleChangeActive = (tab: string) => {
+    setActive(tab);
+    if (tab === 'All') {
       props.handleFilter();
-    }else if(textContent === 'Completed'){
+    } else if (tab === 'Completed') {
       props.handleFilter(false);
-    }else {
+    } else {
       props.handleFilter(true);
     }
   };
 
+  const countTodo = props.todos.filter((todo: TodoItemModel) => !todo.done).length;
 
   return (
     <>
@@ -24,21 +29,21 @@ const Filter = (props:any) => {
         <ul className='filter-list d-flex'>
           <li
             className={`filter-item ${active === 'All' ? 'active' : ''}`}
-            onClick={handleChangeActive}>
+            onClick={() => handleChangeActive('All')}>
             All
           </li>
           <li
             className={`filter-item ${active === 'Completed' ? 'active' : ''}`}
-            onClick={handleChangeActive}>
+            onClick={() => handleChangeActive('Completed')}>
             Completed
           </li>
           <li
             className={`filter-item ${active === 'Todo' ? 'active' : ''}`}
-            onClick={handleChangeActive}>
+            onClick={() => handleChangeActive('Todo')}>
             Todo
           </li>
         </ul>
-        <span className='todo-count'>Totals : {props.countTodo}</span>
+        <span className='todo-count'>Totals : {countTodo}</span>
       </div>
     </>
   );

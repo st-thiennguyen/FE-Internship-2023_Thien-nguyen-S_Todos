@@ -9,7 +9,7 @@ class TodoModel implements TodoProps {
   }
 
   addTodo(todo: TodoItemModel): void {
-    this.items.push(todo);
+    this.items = [todo, ...this.items];
     this.saveTodo();
   }
 
