@@ -10,6 +10,7 @@ const Home = () => {
 
   const [todos, setTodos] = useState<TodoItem[]>([...todoList.items]);
 
+
   const [countTodo, setCountTodo] = useState(todoList.countTodo());
 
   const handleAddTodo = (todo: TodoItem) => {
@@ -20,7 +21,9 @@ const Home = () => {
 
   const handleCompleted = (idTodo: number) => {
     todoList.completedTodo(idTodo);
-    setTodos([...todoList.items]);
+    const todo = todos.find((t) => t.id === idTodo);
+    todo!.done = !todo?.done;
+    setTodos([...todos]);
     setCountTodo(todoList.countTodo());
   };
 
@@ -31,8 +34,7 @@ const Home = () => {
   };
 
   const handleFilter = (value?: boolean) => {
-    todoList.filter(value);
-    setTodos([...todoList.items]);
+    setTodos(todoList.filter(value));
   };
 
   const handleClearCompleted = (e: React.MouseEvent) => {

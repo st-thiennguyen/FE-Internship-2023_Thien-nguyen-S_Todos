@@ -45,11 +45,11 @@ class TodoModel implements TodoProps {
     this.items = todo;
   }
 
-  filter(value?: boolean): void {
+  filter(value?: boolean): TodoItemModel[] {
     if (value === null) {
-      this.getTodo();
+      return this.items;
     } else {
-      this.items = this.items.filter((item) => item.done !== value);
+      return this.items.filter((item) => item.done !== value);
     }
   }
 
