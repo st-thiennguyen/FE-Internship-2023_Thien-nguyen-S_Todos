@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import TodoItemModel from '../../../models/todo-item';
+import { TAB_FILTER } from '../../../shared/constant/constant';
 
 
 interface FilterComponentProps {
@@ -8,13 +9,13 @@ interface FilterComponentProps {
 }
 
 const Filter = (props: FilterComponentProps) => {
-  const [active, setActive] = useState('All');
+  const [active, setActive] = useState(TAB_FILTER.ALL);
 
-  const handleChangeActive = (tab: string) => {
+  const handleChangeActive = (tab: TAB_FILTER) => {
     setActive(tab);
-    if (tab === 'All') {
+    if (tab === TAB_FILTER.ALL) {
       props.handleFilter();
-    } else if (tab === 'Completed') {
+    } else if (tab === TAB_FILTER.COMPLETED) {
       props.handleFilter(false);
     } else {
       props.handleFilter(true);
@@ -28,18 +29,18 @@ const Filter = (props: FilterComponentProps) => {
       <div className='todo-filter d-flex justify-between'>
         <ul className='filter-list d-flex'>
           <li
-            className={`filter-item ${active === 'All' ? 'active' : ''}`}
-            onClick={() => handleChangeActive('All')}>
+            className={`filter-item ${active === TAB_FILTER.ALL ? 'active' : ''}`}
+            onClick={() => handleChangeActive(TAB_FILTER.ALL)}>
             All
           </li>
           <li
-            className={`filter-item ${active === 'Completed' ? 'active' : ''}`}
-            onClick={() => handleChangeActive('Completed')}>
+            className={`filter-item ${active === TAB_FILTER.COMPLETED ? 'active' : ''}`}
+            onClick={() => handleChangeActive(TAB_FILTER.COMPLETED)}>
             Completed
           </li>
           <li
-            className={`filter-item ${active === 'Todo' ? 'active' : ''}`}
-            onClick={() => handleChangeActive('Todo')}>
+            className={`filter-item ${active === TAB_FILTER.TODO ? 'active' : ''}`}
+            onClick={() => handleChangeActive(TAB_FILTER.TODO)}>
             Todo
           </li>
         </ul>

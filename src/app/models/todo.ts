@@ -1,3 +1,4 @@
+import { STORAGE_KEY } from '../shared/constant/constant';
 import TodoItemModel from './todo-item';
 import TodoProps from './todo.props';
 
@@ -17,8 +18,6 @@ class TodoModel implements TodoProps {
     let todoItem = this.items.find((item) => item.id === idTodo);
     if (todoItem !== null) {
       todoItem!.title = title ?? null;
-    } else {
-      console.warn('Id is not valid');
     }
     this.saveTodo();
   }
@@ -37,11 +36,11 @@ class TodoModel implements TodoProps {
   }
 
   saveTodo(): void {
-    localStorage.setItem('todos', JSON.stringify(this.items));
+    localStorage.setItem(STORAGE_KEY.TODO, JSON.stringify(this.items));
   }
 
   getTodo(): void {
-    const todo = JSON.parse(localStorage.getItem('todos')!) || [];
+    const todo = JSON.parse(localStorage.getItem(STORAGE_KEY.TODO)!) || [];
     this.items = todo;
   }
 
