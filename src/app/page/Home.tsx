@@ -56,7 +56,12 @@ const Home = () => {
             <div className='todo-content'>
               <InputTodo handleAddTodo={handleAddTodo} />
               <Filter handleFilter={handleFilter} countTodo={countTodo} />
-              <Todo todos={todos} handleCompleted={handleCompleted} handleDelete={handleDelete} handleUpdateTask={handleUpdateTask} />
+              <Todo
+                todos={todos}
+                handleCompleted={handleCompleted}
+                handleDelete={handleDelete}
+                handleUpdateTask={handleUpdateTask}
+              />
               <div className='todo-bottom '>
                 <button className='btn btn-clear' onClick={handleClearCompleted}>
                   Clear Completed

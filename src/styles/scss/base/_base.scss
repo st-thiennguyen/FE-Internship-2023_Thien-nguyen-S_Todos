@@ -5,4 +5,5 @@ body {
   line-height: $line-height-txt;
   font-size: map-get($font-sizes, sm);
   color: map-get($color, dark);
+  background-color: teal;
 }
