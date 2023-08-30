@@ -1,11 +1,11 @@
 enum StorageKey {
-  TODO = 'todos'
+  TODO = 'todos',
 }
 
 enum Tabs {
   ALL = 'All',
   COMPLETED = 'Completed',
-  TODO = 'Todo'
+  TODO = 'Todo',
 }
 
 export { StorageKey, Tabs };

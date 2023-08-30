@@ -58,12 +58,13 @@ class TodoModel implements TodoProps {
   }
 
   filter(value?: String): TodoItemModel[] {
-    let newArr = this.items;    
+    let newArr = this.items;
     if (value === Tabs.ALL) {
       return this.items;
-    } if( value === Tabs.COMPLETED){
+    }
+    if (value === Tabs.COMPLETED) {
       return newArr.filter((item) => item.done !== false);
-    }else {
+    } else {
       return newArr.filter((item) => item.done !== true);
     }
   }

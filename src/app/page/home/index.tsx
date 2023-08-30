@@ -21,7 +21,7 @@ const Home = () => {
               <InputTodo />
               <Filter />
               <Todo/>
-              <div className='todo-bottom '>
+              <div className='todo-bottom'>
                 <button className='btn btn-clear' onClick={handleClearCompleted}>
                   Clear Completed
                 </button>

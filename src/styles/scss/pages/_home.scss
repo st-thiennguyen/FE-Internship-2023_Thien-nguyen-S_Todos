@@ -1,5 +1,10 @@
 .section-todo {
   min-height: 100vh;
+  max-height: 100vh;
+  background-image: url('../../../app/assets/images/bg2.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .todo-wrapper {
@@ -13,6 +18,7 @@
     background-color: white;
     border: 1px solid #f5f5f5;
     border-top: 5px solid map-get($color, dark);
+    border-radius: 20px;
   }
 
   .todo-input {
@@ -75,6 +81,12 @@
         padding: 10px 20px;
         cursor: pointer;
         outline: none;
+      }
+
+      .todo-edit {
+        border: 1px solid #f5f5f5;
+        border-radius: 10px;
+        background-color: gainsboro;
       }
 
       .btn-delete {

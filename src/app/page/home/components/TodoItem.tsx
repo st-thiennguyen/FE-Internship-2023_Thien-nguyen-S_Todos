@@ -41,6 +41,7 @@ const TodoItem = (props: TodoItemComponentProps) => {
       e.preventDefault();
       const newTitle = inputRef.current!.value;
       dispatch(updateTitleTodoItem(todo.id, newTitle));
+      setEditable(false);
     }
   };
   return (
@@ -54,7 +55,7 @@ const TodoItem = (props: TodoItemComponentProps) => {
         />
         {isEditable ? (
           <input
-            className='todo-text'
+            className='todo-text todo-edit'
             ref={inputRef}
             autoFocus
             type='text'
