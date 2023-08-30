@@ -1,31 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TodoItem from './TodoItem';
 import TodoItemModel from '../../../models/todo-item';
-import TodoModel from '../../../models/todo';
+import { useSelector } from 'react-redux';
+import { todoListSelector } from '../../../redux/selector';
+import { saveDataToStorage } from '../../../shared/utils/utils';
 
-interface TodoComponentProps{
-  todos : TodoItemModel[],
-  filterStatus:String,
-  handleCompleted : Function,
-  handleDelete : Function,
-  handleUpdateTask : Function
-}
+const Todo = () => {
+  const todoSelector = useSelector(todoListSelector);
 
-const Todo = (props: TodoComponentProps) => {
-  const todoList = new TodoModel();
-  const resultList = todoList.filter(props.filterStatus);
+  useEffect(() => {
+    saveDataToStorage(todoSelector);
+  },[todoSelector])
+
   return (
     <>
       <div className='todo-display'>
         <ul className='todo-list'>
-          {resultList &&
-            resultList.map((todo: TodoItemModel) => {
+          {todoSelector &&
+            todoSelector.map((todo: TodoItemModel) => {
               return (
                 <TodoItem
                   todo={todo}
-                  handleCompleted={props.handleCompleted}
-                  handleDelete={props.handleDelete}
-                  handleUpdateTask={props.handleUpdateTask}
                   key={todo.id}
                 />
               );

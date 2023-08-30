@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import TodoItemModel from '../../../models/todo-item';
+import { useDispatch } from 'react-redux';
+import { addTodoItem } from '../../../redux/actions';
 
-interface InputTodoProps{
-  handleAddTodo:Function
-}
-
-const InputTodo = (props:InputTodoProps) => {
+const InputTodo = () => {
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const dispatch = useDispatch();
   
   const addTodo = (e:React.FormEvent) => {
     e.preventDefault();
@@ -17,7 +17,7 @@ const InputTodo = (props:InputTodoProps) => {
         title: inputRef.current?.value || '',
         done: false
       }
-      props.handleAddTodo(todo);
+      dispatch(addTodoItem(todo))
     }
     inputRef.current!.value = ''; 
   }

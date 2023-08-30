@@ -1,41 +1,42 @@
-import TodoItemModel from '../../../models/todo-item';
+import { useDispatch, useSelector } from 'react-redux';
 import { Tabs } from '../../../shared/constant/constant';
+import { filterStatusChange } from '../../../redux/actions';
+import { countTodoSelector, filterSelector } from '../../../redux/selector';
 
+const Filter = () => {
 
-interface FilterComponentProps {
-  handleFilter : Function,
-  filterStatus : String,
-  todos : TodoItemModel[]
-}
+  const dispatch = useDispatch();
 
-const Filter = (props: FilterComponentProps) => {
+  const filter = useSelector(filterSelector);
+
+  const count = useSelector(countTodoSelector);
+  
   const handleChangeActive = (tab: Tabs) => {
-    props.handleFilter(tab);
+    dispatch(filterStatusChange(tab))
   };
 
-  const countTodo = props.todos.filter((todo: TodoItemModel) => !todo.done).length;
 
   return (
     <>
       <div className='todo-filter d-flex justify-between'>
         <ul className='filter-list d-flex'>
           <li
-            className={`filter-item ${props.filterStatus === Tabs.ALL ? 'active' : ''}`}
+            className={`filter-item ${filter === Tabs.ALL ? 'active' : ''}`}
             onClick={() => handleChangeActive(Tabs.ALL)}>
             All
           </li>
           <li
-            className={`filter-item ${props.filterStatus === Tabs.COMPLETED ? 'active' : ''}`}
+            className={`filter-item ${filter === Tabs.COMPLETED ? 'active' : ''}`}
             onClick={() => handleChangeActive(Tabs.COMPLETED)}>
             Completed
           </li>
           <li
-            className={`filter-item ${props.filterStatus === Tabs.TODO ? 'active' : ''}`}
+            className={`filter-item ${filter === Tabs.TODO ? 'active' : ''}`}
             onClick={() => handleChangeActive(Tabs.TODO)}>
             Todo
           </li>
         </ul>
-        <span className='todo-count'>Totals : {countTodo}</span>
+        <span className='todo-count'>Totals : {count}</span>
       </div>
     </>
   );

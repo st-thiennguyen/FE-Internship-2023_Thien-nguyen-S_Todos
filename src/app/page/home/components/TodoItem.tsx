@@ -1,15 +1,17 @@
 import React, { useRef, useState } from 'react';
 import TodoItemModel from '../../../models/todo-item';
+import { useDispatch } from 'react-redux';
+import { deleteTodoItem, makeCompleted, updateTitleTodoItem } from '../../../redux/actions';
 
 
 interface TodoItemComponentProps{ 
   todo:TodoItemModel,
-  handleCompleted : Function,
-  handleDelete : Function,
-  handleUpdateTask  :Function,
 }
 
 const TodoItem = (props: TodoItemComponentProps) => {
+
+  const dispatch = useDispatch();
+
   const todo: TodoItemModel = props.todo;
 
   const [isEditable, setEditable] = useState(false);
@@ -17,29 +19,28 @@ const TodoItem = (props: TodoItemComponentProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChecked = (idTodo: number) => {
-    props.handleCompleted(idTodo);
+    dispatch(makeCompleted(idTodo))
   };
 
-  const handleRemove = (idTodo: number) => {
-    props.handleDelete(idTodo);
+  const handleRemove = (todo: TodoItemModel) => {
+    dispatch(deleteTodoItem(todo))
   };
 
   const handleBlurToLable = () => {
     setEditable(false);
     const newTitle = inputRef.current!.value;
-    props.handleUpdateTask(todo.id, newTitle);
-    
+    dispatch(updateTitleTodoItem(todo.id, newTitle))
   };
 
   const handleDoubleClickToEdit = () => {
     setEditable(true);
   };
 
-  const handleChangeTitle = (e: React.KeyboardEvent, idTodo: number) => {
+  const handleChangeTitle = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       const newTitle = inputRef.current!.value;
-      props.handleUpdateTask(idTodo, newTitle);
+      dispatch(updateTitleTodoItem(todo.id, newTitle));
     }
   };
   return (
@@ -58,7 +59,7 @@ const TodoItem = (props: TodoItemComponentProps) => {
             autoFocus
             type='text'
             defaultValue={todo.title}
-            onKeyDown={(e) => handleChangeTitle(e, todo.id)}
+            onKeyDown={handleChangeTitle}
             onBlur={handleBlurToLable}
           />
         ) : (
@@ -66,7 +67,7 @@ const TodoItem = (props: TodoItemComponentProps) => {
             {todo.title}
           </label>
         )}
-        <button className='btn btn-delete' onClick={() => handleRemove(todo.id)}>
+        <button className='btn btn-delete' onClick={() => handleRemove(todo)}>
           Delete
         </button>
       </li>
