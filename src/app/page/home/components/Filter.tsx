@@ -1,25 +1,16 @@
-import React, { useState } from 'react';
 import TodoItemModel from '../../../models/todo-item';
-import { TAB_FILTER } from '../../../shared/constant/constant';
+import { Tabs } from '../../../shared/constant/constant';
 
 
 interface FilterComponentProps {
   handleFilter : Function,
+  filterStatus : String,
   todos : TodoItemModel[]
 }
 
 const Filter = (props: FilterComponentProps) => {
-  const [active, setActive] = useState(TAB_FILTER.ALL);
-
-  const handleChangeActive = (tab: TAB_FILTER) => {
-    setActive(tab);
-    if (tab === TAB_FILTER.ALL) {
-      props.handleFilter();
-    } else if (tab === TAB_FILTER.COMPLETED) {
-      props.handleFilter(false);
-    } else {
-      props.handleFilter(true);
-    }
+  const handleChangeActive = (tab: Tabs) => {
+    props.handleFilter(tab);
   };
 
   const countTodo = props.todos.filter((todo: TodoItemModel) => !todo.done).length;
@@ -29,18 +20,18 @@ const Filter = (props: FilterComponentProps) => {
       <div className='todo-filter d-flex justify-between'>
         <ul className='filter-list d-flex'>
           <li
-            className={`filter-item ${active === TAB_FILTER.ALL ? 'active' : ''}`}
-            onClick={() => handleChangeActive(TAB_FILTER.ALL)}>
+            className={`filter-item ${props.filterStatus === Tabs.ALL ? 'active' : ''}`}
+            onClick={() => handleChangeActive(Tabs.ALL)}>
             All
           </li>
           <li
-            className={`filter-item ${active === TAB_FILTER.COMPLETED ? 'active' : ''}`}
-            onClick={() => handleChangeActive(TAB_FILTER.COMPLETED)}>
+            className={`filter-item ${props.filterStatus === Tabs.COMPLETED ? 'active' : ''}`}
+            onClick={() => handleChangeActive(Tabs.COMPLETED)}>
             Completed
           </li>
           <li
-            className={`filter-item ${active === TAB_FILTER.TODO ? 'active' : ''}`}
-            onClick={() => handleChangeActive(TAB_FILTER.TODO)}>
+            className={`filter-item ${props.filterStatus === Tabs.TODO ? 'active' : ''}`}
+            onClick={() => handleChangeActive(Tabs.TODO)}>
             Todo
           </li>
         </ul>

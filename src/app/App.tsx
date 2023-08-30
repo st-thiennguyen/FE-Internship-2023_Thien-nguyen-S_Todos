@@ -1,16 +1,10 @@
 import React from 'react';
-import Home from './page/home/Home';
+import Home from './page/home';
 import '../styles/scss/style.scss'
 
 function App() {
   return (
-    <>
-    <header></header>
-    <main>
       <Home/>
-    </main>
-    <footer></footer>
-    </>
   );
 }
 

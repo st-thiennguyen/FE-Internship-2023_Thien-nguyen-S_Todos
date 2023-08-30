@@ -1,12 +1,21 @@
-import { STORAGE_KEY } from '../shared/constant/constant';
+import { StorageKey, Tabs } from '../shared/constant/constant';
 import TodoItemModel from './todo-item';
-import TodoProps from './todo.props';
+
+interface TodoProps {
+  items: TodoItemModel[];
+  addTodo(todo: TodoItemModel): void;
+  updateTodo(idTodo: number, title: string): void;
+  completedTodo(idTodo: number): void;
+  deleteTodo(idTodo: number): void;
+  saveTodo(): void;
+  getTodo(): void;
+  countTodo(): number;
+}
 
 class TodoModel implements TodoProps {
   items: TodoItemModel[];
-  constructor(item: TodoItemModel[]) {
-    this.items = item;
-    this.getTodo();
+  constructor(item?: TodoItemModel[]) {
+    this.items = item || this.getTodoFromDatabase();
   }
 
   addTodo(todo: TodoItemModel): void {
@@ -36,19 +45,26 @@ class TodoModel implements TodoProps {
   }
 
   saveTodo(): void {
-    localStorage.setItem(STORAGE_KEY.TODO, JSON.stringify(this.items));
+    localStorage.setItem(StorageKey.TODO, JSON.stringify(this.items));
   }
 
-  getTodo(): void {
-    const todo = JSON.parse(localStorage.getItem(STORAGE_KEY.TODO)!) || [];
-    this.items = todo;
+  getTodoFromDatabase(): TodoItemModel[] {
+    const todo = JSON.parse(localStorage.getItem(StorageKey.TODO)!) || [];
+    return todo;
   }
 
-  filter(value?: boolean): TodoItemModel[] {
-    if (value === null) {
+  getTodo(): TodoItemModel[] {
+    return this.items;
+  }
+
+  filter(value?: String): TodoItemModel[] {
+    let newArr = this.items;    
+    if (value === Tabs.ALL) {
       return this.items;
-    } else {
-      return this.items.filter((item) => item.done !== value);
+    } if( value === Tabs.COMPLETED){
+      return newArr.filter((item) => item.done !== false);
+    }else {
+      return newArr.filter((item) => item.done !== true);
     }
   }
 

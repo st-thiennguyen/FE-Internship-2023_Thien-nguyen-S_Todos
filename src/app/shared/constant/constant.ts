@@ -1,11 +1,11 @@
-enum STORAGE_KEY {
+enum StorageKey {
   TODO = 'todos'
 }
 
-enum TAB_FILTER {
+enum Tabs {
   ALL = 'All',
   COMPLETED = 'Completed',
   TODO = 'Todo'
 }
 
-export { STORAGE_KEY, TAB_FILTER };
+export { StorageKey, Tabs };
