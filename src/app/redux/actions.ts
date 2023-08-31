@@ -43,6 +43,7 @@ export const updateTitleTodoItem = (id: number, title: string) => {
     payload: { id, title },
   };
 };
+
 // Filter
 
 export const filterStatusChange = (tab: Tabs) => {

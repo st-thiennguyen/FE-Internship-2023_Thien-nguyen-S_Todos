@@ -31,7 +31,7 @@ const TodoItem = (props: TodoItemComponentProps) => {
 
   const handleBlurToLable = () => {
     setEditable(false);
-    const newTitle = inputRef.current!.value;
+    const newTitle = inputRef.current!.value.trim();
     if (newTitle) {
       dispatch(updateTitleTodoItem(todo.id, newTitle));
     }
@@ -44,7 +44,7 @@ const TodoItem = (props: TodoItemComponentProps) => {
   const handleChangeTitle = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      const newTitle = inputRef.current!.value;
+      const newTitle = inputRef.current!.value.trim();
       if (newTitle) {
         dispatch(updateTitleTodoItem(todo.id, newTitle));
       }

@@ -12,10 +12,10 @@ const InputTodo = () => {
   const addTodo = (e: React.FormEvent) => {
     e.preventDefault();
     const id = new Date().getTime();
-    if (inputRef.current?.value) {
+    if (inputRef.current?.value.trim()) {
       const todo: TodoItemModel = {
         id: id,
-        title: inputRef.current?.value || '',
+        title: inputRef.current?.value.trim(),
         done: false,
       };
       dispatch(addTodoItem(todo));
