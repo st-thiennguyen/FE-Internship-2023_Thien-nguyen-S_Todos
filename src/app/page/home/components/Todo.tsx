@@ -14,7 +14,6 @@ const Todo = () => {
   }, [todoSelector]);
 
   return (
-    <>
       <div className="todo-display">
         <ul className="todo-list">
           {todoSelector &&
@@ -23,7 +22,6 @@ const Todo = () => {
             })}
         </ul>
       </div>
-    </>
   );
 };
 

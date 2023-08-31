@@ -52,38 +52,34 @@ const TodoItem = (props: TodoItemComponentProps) => {
     }
   };
   return (
-    <>
-      <li
-        className={`todo-item d-flex item-center ${
-          todo.done ? 'completed' : ''
-        }`}
-      >
+    <li
+      className={`todo-item d-flex item-center ${todo.done ? 'completed' : ''}`}
+    >
+      <input
+        className="todo-check"
+        type="checkbox"
+        checked={todo.done}
+        onChange={() => handleChecked(todo.id)}
+      />
+      {isEditable ? (
         <input
-          className="todo-check"
-          type="checkbox"
-          checked={todo.done}
-          onChange={() => handleChecked(todo.id)}
+          className="todo-text todo-edit"
+          ref={inputRef}
+          autoFocus
+          type="text"
+          defaultValue={todo.title}
+          onKeyDown={handleChangeTitle}
+          onBlur={handleBlurToLable}
         />
-        {isEditable ? (
-          <input
-            className="todo-text todo-edit"
-            ref={inputRef}
-            autoFocus
-            type="text"
-            defaultValue={todo.title}
-            onKeyDown={handleChangeTitle}
-            onBlur={handleBlurToLable}
-          />
-        ) : (
-          <label className="todo-text" onDoubleClick={handleDoubleClickToEdit}>
-            {todo.title}
-          </label>
-        )}
-        <button className="btn btn-delete" onClick={() => handleRemove(todo)}>
-          Delete
-        </button>
-      </li>
-    </>
+      ) : (
+        <label className="todo-text" onDoubleClick={handleDoubleClickToEdit}>
+          {todo.title}
+        </label>
+      )}
+      <button className="btn btn-delete" onClick={() => handleRemove(todo)}>
+        Delete
+      </button>
+    </li>
   );
 };
 

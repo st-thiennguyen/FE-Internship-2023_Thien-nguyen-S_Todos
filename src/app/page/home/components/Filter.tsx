@@ -21,44 +21,42 @@ const Filter = () => {
   };
 
   return (
-    <>
-      <div className="todo-filter-wrapper">
-        <div className="todo-filter d-flex justify-between">
-          <ul className="filter-list d-flex">
-            <li
-              className={`filter-item ${filter === Tabs.ALL ? 'active' : ''}`}
-              onClick={() => handleChangeActive(Tabs.ALL)}
-            >
-              All
-            </li>
-            <li
-              className={`filter-item ${
-                filter === Tabs.COMPLETED ? 'active' : ''
-              }`}
-              onClick={() => handleChangeActive(Tabs.COMPLETED)}
-            >
-              Completed
-            </li>
-            <li
-              className={`filter-item ${filter === Tabs.TODO ? 'active' : ''}`}
-              onClick={() => handleChangeActive(Tabs.TODO)}
-            >
-              Todo
-            </li>
-          </ul>
-          <span className="todo-count">Totals : {count}</span>
-        </div>
-        <div className="todo-check-all">
-          <span onClick={handleCheckAll}>
-            <img
-              src={checkIcon}
-              className="icon-check"
-              alt="Check icon for check all"
-            />
-          </span>
-        </div>
+    <div className="todo-filter-wrapper">
+      <div className="todo-filter d-flex justify-between">
+        <ul className="filter-list d-flex">
+          <li
+            className={`filter-item ${filter === Tabs.ALL ? 'active' : ''}`}
+            onClick={() => handleChangeActive(Tabs.ALL)}
+          >
+            All
+          </li>
+          <li
+            className={`filter-item ${
+              filter === Tabs.COMPLETED ? 'active' : ''
+            }`}
+            onClick={() => handleChangeActive(Tabs.COMPLETED)}
+          >
+            Completed
+          </li>
+          <li
+            className={`filter-item ${filter === Tabs.TODO ? 'active' : ''}`}
+            onClick={() => handleChangeActive(Tabs.TODO)}
+          >
+            Todo
+          </li>
+        </ul>
+        <span className="todo-count">Totals : {count}</span>
       </div>
-    </>
+      <div className="todo-check-all">
+        <span onClick={handleCheckAll}>
+          <img
+            src={checkIcon}
+            className="icon-check"
+            alt="Check icon for check all"
+          />
+        </span>
+      </div>
+    </div>
   );
 };
 

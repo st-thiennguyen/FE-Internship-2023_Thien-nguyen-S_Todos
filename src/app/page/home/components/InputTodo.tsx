@@ -24,16 +24,14 @@ const InputTodo = () => {
   };
 
   return (
-    <>
-      <form onSubmit={addTodo} className="todo-form">
-        <input
-          ref={inputRef}
-          className="todo-input"
-          type="search"
-          placeholder="Add new task here"
-        />
-      </form>
-    </>
+    <form onSubmit={addTodo} className="todo-form">
+      <input
+        ref={inputRef}
+        className="todo-input"
+        type="search"
+        placeholder="Add new task here"
+      />
+    </form>
   );
 };
 
