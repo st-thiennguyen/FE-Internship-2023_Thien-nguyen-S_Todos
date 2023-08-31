@@ -45,7 +45,7 @@ const Filter = () => {
             Todo
           </li>
         </ul>
-        <span className="todo-count">Totals : {count}</span>
+        {count <= 1 ? <span className="todo-count">Total left : {count}</span> : <span className="todo-count">Totals left : {count}</span>}
       </div>
       <div className="todo-check-all">
         <span onClick={handleCheckAll}>
