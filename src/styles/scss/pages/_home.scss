@@ -44,6 +44,20 @@
     }
   }
 
+  .todo-check-all {
+    margin-top: 18px;
+    cursor: pointer;
+    .active {
+      font-weight: map-get($font-weight, semibold);
+      position: relative;
+      &::after {
+        position: absolute;
+        content: '\2713';
+        left: 110%;
+      }
+    }
+  }
+
   .todo-display {
     margin-top: 18px;
     max-height: 40vh;

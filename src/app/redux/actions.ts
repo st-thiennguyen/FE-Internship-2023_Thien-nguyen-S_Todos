@@ -4,6 +4,7 @@ import {
   ADD_TODO_ITEM,
   CLEAR_COMPLETED_ITEM,
   DELETE_ITEM,
+  FILTER_CHECK_ALL,
   FILTER_STATUS_CHANGE,
   MAKE_TODO_COMPLETED,
   UPDATE_TITLE_TODO_ITEM,
@@ -48,5 +49,12 @@ export const filterStatusChange = (tab: Tabs) => {
   return {
     type: FILTER_STATUS_CHANGE,
     payload: tab,
+  };
+};
+
+export const filterCheckAll = (check: Boolean) => {
+  return {
+    type: FILTER_CHECK_ALL,
+    payload: check,
   };
 };

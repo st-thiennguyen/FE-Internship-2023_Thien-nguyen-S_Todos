@@ -4,6 +4,7 @@ import {
   ADD_TODO_ITEM,
   CLEAR_COMPLETED_ITEM,
   DELETE_ITEM,
+  FILTER_CHECK_ALL,
   MAKE_TODO_COMPLETED,
   UPDATE_TITLE_TODO_ITEM,
 } from '../type';
@@ -53,6 +54,17 @@ export const todoReducer = (state = initialState, action: any) => {
             if (item.id === action.payload.id) {
               item.title = action.payload.title;
             }
+            return item;
+          }),
+        ],
+      };
+
+    case FILTER_CHECK_ALL:
+      return {
+        ...state,
+        items: [
+          ...state.items.map((item) => {
+            item.done = !action.payload;
             return item;
           }),
         ],
