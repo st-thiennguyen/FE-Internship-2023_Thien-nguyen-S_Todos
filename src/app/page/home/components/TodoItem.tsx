@@ -29,7 +29,9 @@ const TodoItem = (props: TodoItemComponentProps) => {
   const handleBlurToLable = () => {
     setEditable(false);
     const newTitle = inputRef.current!.value;
-    dispatch(updateTitleTodoItem(todo.id, newTitle))
+    if(newTitle){
+      dispatch(updateTitleTodoItem(todo.id, newTitle))
+    }
   };
 
   const handleDoubleClickToEdit = () => {
@@ -40,7 +42,9 @@ const TodoItem = (props: TodoItemComponentProps) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       const newTitle = inputRef.current!.value;
-      dispatch(updateTitleTodoItem(todo.id, newTitle));
+      if(newTitle){
+        dispatch(updateTitleTodoItem(todo.id, newTitle));
+      }
       setEditable(false);
     }
   };
