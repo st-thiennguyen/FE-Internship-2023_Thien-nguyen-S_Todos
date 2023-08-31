@@ -60,11 +60,12 @@ export const todoReducer = (state = initialState, action: any) => {
       };
 
     case FILTER_CHECK_ALL:
+      const checkAllTodos = state.items.every((item) => item.done === true);
       return {
         ...state,
         items: [
           ...state.items.map((item) => {
-            item.done = !action.payload;
+            item.done = checkAllTodos ? false : true;
             return item;
           }),
         ],

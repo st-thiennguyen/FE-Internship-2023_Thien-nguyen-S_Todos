@@ -1,15 +1,12 @@
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import checkIcon from '../../../assets/images/check.svg';
 import { filterCheckAll, filterStatusChange } from '../../../redux/actions';
 import { countTodoSelector, filterSelector } from '../../../redux/selector';
-import checkIcon from '../../../assets/images/check.svg';
 import { Tabs } from '../../../shared/constant/constant';
 
 const Filter = () => {
   const dispatch = useDispatch();
-
-  const [checkAll, setCheckAll] = useState(false);
 
   const filter = useSelector(filterSelector);
 
@@ -20,9 +17,8 @@ const Filter = () => {
   };
 
   const handleCheckAll = () => {
-    setCheckAll(!checkAll);
-    dispatch(filterCheckAll(checkAll))
-  }
+    dispatch(filterCheckAll());
+  };
 
   return (
     <>
@@ -53,7 +49,13 @@ const Filter = () => {
           <span className="todo-count">Totals : {count}</span>
         </div>
         <div className="todo-check-all">
-          <span onClick={handleCheckAll}><img src={checkIcon} className='icon icon-check' alt="Check icon for check all" /></span>
+          <span onClick={handleCheckAll}>
+            <img
+              src={checkIcon}
+              className="icon-check"
+              alt="Check icon for check all"
+            />
+          </span>
         </div>
       </div>
     </>

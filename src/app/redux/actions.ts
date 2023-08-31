@@ -52,9 +52,8 @@ export const filterStatusChange = (tab: Tabs) => {
   };
 };
 
-export const filterCheckAll = (check: Boolean) => {
+export const filterCheckAll = () => {
   return {
     type: FILTER_CHECK_ALL,
-    payload: check,
   };
 };

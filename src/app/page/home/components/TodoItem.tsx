@@ -1,15 +1,18 @@
 import React, { useRef, useState } from 'react';
-import TodoItemModel from '../../../models/todo-item';
 import { useDispatch } from 'react-redux';
-import { deleteTodoItem, makeCompleted, updateTitleTodoItem } from '../../../redux/actions';
 
+import TodoItemModel from '../../../models/todo-item';
+import {
+  deleteTodoItem,
+  makeCompleted,
+  updateTitleTodoItem,
+} from '../../../redux/actions';
 
-interface TodoItemComponentProps{ 
-  todo:TodoItemModel,
+interface TodoItemComponentProps {
+  todo: TodoItemModel;
 }
 
 const TodoItem = (props: TodoItemComponentProps) => {
-
   const dispatch = useDispatch();
 
   const todo: TodoItemModel = props.todo;
@@ -19,18 +22,18 @@ const TodoItem = (props: TodoItemComponentProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChecked = (idTodo: number) => {
-    dispatch(makeCompleted(idTodo))
+    dispatch(makeCompleted(idTodo));
   };
 
   const handleRemove = (todo: TodoItemModel) => {
-    dispatch(deleteTodoItem(todo))
+    dispatch(deleteTodoItem(todo));
   };
 
   const handleBlurToLable = () => {
     setEditable(false);
     const newTitle = inputRef.current!.value;
-    if(newTitle){
-      dispatch(updateTitleTodoItem(todo.id, newTitle))
+    if (newTitle) {
+      dispatch(updateTitleTodoItem(todo.id, newTitle));
     }
   };
 
@@ -42,7 +45,7 @@ const TodoItem = (props: TodoItemComponentProps) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       const newTitle = inputRef.current!.value;
-      if(newTitle){
+      if (newTitle) {
         dispatch(updateTitleTodoItem(todo.id, newTitle));
       }
       setEditable(false);
@@ -50,29 +53,33 @@ const TodoItem = (props: TodoItemComponentProps) => {
   };
   return (
     <>
-      <li className={`todo-item d-flex item-center ${todo.done ? 'completed' : ''}`}>
+      <li
+        className={`todo-item d-flex item-center ${
+          todo.done ? 'completed' : ''
+        }`}
+      >
         <input
-          className='todo-check'
-          type='checkbox'
+          className="todo-check"
+          type="checkbox"
           checked={todo.done}
           onChange={() => handleChecked(todo.id)}
         />
         {isEditable ? (
           <input
-            className='todo-text todo-edit'
+            className="todo-text todo-edit"
             ref={inputRef}
             autoFocus
-            type='text'
+            type="text"
             defaultValue={todo.title}
             onKeyDown={handleChangeTitle}
             onBlur={handleBlurToLable}
           />
         ) : (
-          <label className='todo-text' onDoubleClick={handleDoubleClickToEdit}>
+          <label className="todo-text" onDoubleClick={handleDoubleClickToEdit}>
             {todo.title}
           </label>
         )}
-        <button className='btn btn-delete' onClick={() => handleRemove(todo)}>
+        <button className="btn btn-delete" onClick={() => handleRemove(todo)}>
           Delete
         </button>
       </li>
