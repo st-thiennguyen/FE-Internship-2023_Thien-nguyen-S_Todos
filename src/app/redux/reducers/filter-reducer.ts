@@ -1,5 +1,5 @@
 import { Tabs } from '../../shared/constant/constant';
-import { FILTER_STATUS_CHANGE } from '../type';
+import * as ACTION_TYPES from '../type';
 
 interface FilterStateProps {
   status: Tabs;
@@ -11,7 +11,7 @@ const initialState: FilterStateProps = {
 
 export const filterReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case FILTER_STATUS_CHANGE:
+    case ACTION_TYPES.FILTER_STATUS_CHANGE:
       return {
         ...state,
         status: action.payload,

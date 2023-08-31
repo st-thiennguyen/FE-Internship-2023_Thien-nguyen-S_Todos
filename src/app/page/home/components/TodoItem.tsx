@@ -15,7 +15,7 @@ interface TodoItemComponentProps {
 const TodoItem = (props: TodoItemComponentProps) => {
   const dispatch = useDispatch();
 
-  const todo: TodoItemModel = props.todo;
+  const { todo } = props;
 
   const [isEditable, setEditable] = useState(false);
 
@@ -25,17 +25,17 @@ const TodoItem = (props: TodoItemComponentProps) => {
     dispatch(makeCompleted(idTodo));
   };
 
-  const handleRemove = (todo: TodoItemModel) => {
-    dispatch(deleteTodoItem(todo));
+  const handleRemove = () => {
+    dispatch(deleteTodoItem(todo.id));
   };
 
-  const handleBlurToLable = () => {
-    setEditable(false);
+  const updateItem = () => {
     const newTitle = inputRef.current!.value.trim();
     if (newTitle) {
       dispatch(updateTitleTodoItem(todo.id, newTitle));
     }
-  };
+    setEditable(false);
+  }
 
   const handleDoubleClickToEdit = () => {
     setEditable(true);
@@ -44,21 +44,17 @@ const TodoItem = (props: TodoItemComponentProps) => {
   const handleChangeTitle = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      const newTitle = inputRef.current!.value.trim();
-      if (newTitle) {
-        dispatch(updateTitleTodoItem(todo.id, newTitle));
-      }
-      setEditable(false);
+      updateItem();
     }
   };
   return (
     <li
-      className={`todo-item d-flex item-center ${todo.done ? 'completed' : ''}`}
+      className={`todo-item d-flex item-center ${todo.isCompleted ? 'completed' : ''}`}
     >
       <input
         className="todo-check"
         type="checkbox"
-        checked={todo.done}
+        checked={todo.isCompleted}
         onChange={() => handleChecked(todo.id)}
       />
       {isEditable ? (
@@ -69,14 +65,14 @@ const TodoItem = (props: TodoItemComponentProps) => {
           type="text"
           defaultValue={todo.title}
           onKeyDown={handleChangeTitle}
-          onBlur={handleBlurToLable}
+          onBlur={updateItem}
         />
       ) : (
         <label className="todo-text" onDoubleClick={handleDoubleClickToEdit}>
           {todo.title}
         </label>
       )}
-      <button className="btn btn-delete" onClick={() => handleRemove(todo)}>
+      <button className="btn btn-delete" onClick={handleRemove}>
         Delete
       </button>
     </li>

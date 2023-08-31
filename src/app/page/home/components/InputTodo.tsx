@@ -16,7 +16,7 @@ const InputTodo = () => {
       const todo: TodoItemModel = {
         id: id,
         title: inputRef.current?.value.trim(),
-        done: false,
+        isCompleted: false,
       };
       dispatch(addTodoItem(todo));
     }

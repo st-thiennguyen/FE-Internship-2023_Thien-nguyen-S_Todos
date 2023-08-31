@@ -1,74 +1,64 @@
 import TodoItemModel from '../../models/todo-item';
+import { StorageKey } from '../../shared/constant/constant';
 import { getDataFromStorage } from '../../shared/utils/utils';
-import {
-  ADD_TODO_ITEM,
-  CLEAR_COMPLETED_ITEM,
-  DELETE_ITEM,
-  MAKE_TODO_COMPLETED,
-  TODO_CHECK_ALL,
-  UPDATE_TITLE_TODO_ITEM,
-} from '../type';
+import * as ACTION_TYPES from '../type';
 
 export interface TodoStateProps {
   items: TodoItemModel[];
 }
 
 const initialState: TodoStateProps = {
-  items: getDataFromStorage(),
+  items: getDataFromStorage(StorageKey.TODO),
 };
 
 export const todoReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case ADD_TODO_ITEM:
+    case ACTION_TYPES.TODO_ITEM_ADD:
       return {
         ...state,
         items: [action.payload, ...state.items],
       };
-    case DELETE_ITEM:
+    case ACTION_TYPES.TODO_ITEM_DELETE:
       return {
         ...state,
-        items: [...state.items.filter((item) => item !== action.payload)],
+        items: state.items.filter((item) => item.id !== action.payload),
       };
-    case CLEAR_COMPLETED_ITEM:
+    case ACTION_TYPES.TODO_CLEAR_COMPLETED:
       return {
         ...state,
-        items: [...state.items.filter((item) => item.done !== true)],
+        items: state.items.filter((item) => item.isCompleted !== true),
       };
-    case MAKE_TODO_COMPLETED:
+    case ACTION_TYPES.TODO_ITEM_TOGGLE:
       return {
         ...state,
-        items: [
-          ...state.items.map((item) => {
-            if (item.id === action.payload) {
-              item.done = !item.done;
-            }
-            return item;
-          }),
-        ],
+        items: state.items.map((item) => {
+          if (item.id === action.payload) {
+            item.isCompleted = !item.isCompleted;
+          }
+          return item;
+        }),
       };
-    case UPDATE_TITLE_TODO_ITEM:
+    case ACTION_TYPES.TODO_ITEM_UPDATE:
       return {
         ...state,
-        items: [
-          ...state.items.map((item) => {
-            if (item.id === action.payload.id) {
-              item.title = action.payload.title;
-            }
-            return item;
-          }),
-        ],
+        items: state.items.map((item) => {
+          if (item.id === action.payload.id) {
+            item.title = action.payload.title;
+          }
+          return item;
+        }),
       };
 
-    case TODO_CHECK_ALL:
-      const checkAllTodos = state.items.every((item) => item.done === true);
+    case ACTION_TYPES.TODO_ALL_COMPLETED:
+      const checkAllTodos = state.items.every(
+        (item) => item.isCompleted === true,
+      );
       return {
         ...state,
-        items: [
-          ...state.items.map((item) => {
-            item.done = checkAllTodos ? false : true;
-            return item;
-          }),
-        ],
+        items: state.items.map((item) => {
+          item.isCompleted = checkAllTodos ? false : true;
+          return item;
+        }),
       };
     default:
       return state;

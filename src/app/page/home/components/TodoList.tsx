@@ -4,27 +4,29 @@ import { useSelector } from 'react-redux';
 import TodoItemModel from '../../../models/todo-item';
 import { saveDataToStorage } from '../../../shared/utils/utils';
 import TodoItem from './TodoItem';
-import { Tabs } from '../../../shared/constant/constant';
+import { StorageKey, Tabs } from '../../../shared/constant/constant';
 
-const Todo = () => {
+const TodoList = () => {
   
   const todoSelector = useSelector((state:any) => {
-    if (state.filters.status === Tabs.ALL) {
-      return state.todos.items;
-    }
-    if (state.filters.status === Tabs.COMPLETED) {
-      return state.todos.items.filter(
-        (item: TodoItemModel) => item.done !== false,
-      );
-    } else {
-      return state.todos.items.filter(
-        (item: TodoItemModel) => item.done !== true,
-      );
+    switch (state.filters.status) {
+      case Tabs.ALL:
+        return state.todos.items;
+      case Tabs.COMPLETED :
+        return state.todos.items.filter(
+          (item: TodoItemModel) => item.isCompleted !== false,
+        );
+      case Tabs.TODO :
+        return state.todos.items.filter(
+          (item: TodoItemModel) => item.isCompleted !== true,
+        );
+      default:
+        return state.todos.items;
     }
   });
 
   useEffect(() => {
-    saveDataToStorage(todoSelector);
+    saveDataToStorage(StorageKey.TODO,todoSelector);
   }, [todoSelector]);
 
   return (
@@ -39,4 +41,4 @@ const Todo = () => {
   );
 };
 
-export default Todo;
+export default TodoList;

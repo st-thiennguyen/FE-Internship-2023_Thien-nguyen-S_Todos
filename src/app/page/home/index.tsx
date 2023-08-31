@@ -1,6 +1,6 @@
 import InputTodo from './components/InputTodo';
 import Filter from './components/Filter';
-import Todo from './components/Todo';
+import TodoList from './components/TodoList';
 import { useDispatch } from 'react-redux';
 import { clearCompleted } from '../../redux/actions';
 
@@ -20,7 +20,7 @@ const Home = () => {
             <div className='todo-content'>
               <InputTodo />
               <Filter />
-              <Todo/>
+              <TodoList/>
               <div className='todo-bottom'>
                 <button className='btn btn-clear' onClick={handleClearCompleted}>
                   Clear Completed
