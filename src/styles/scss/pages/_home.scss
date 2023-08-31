@@ -46,15 +46,10 @@
 
   .todo-check-all {
     margin-top: 18px;
-    cursor: pointer;
-    .active {
-      font-weight: map-get($font-weight, semibold);
-      position: relative;
-      &::after {
-        position: absolute;
-        content: '\2713';
-        left: 110%;
-      }
+    .icon-check {
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
     }
   }
 
