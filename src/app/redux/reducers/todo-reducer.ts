@@ -4,8 +4,8 @@ import {
   ADD_TODO_ITEM,
   CLEAR_COMPLETED_ITEM,
   DELETE_ITEM,
-  FILTER_CHECK_ALL,
   MAKE_TODO_COMPLETED,
+  TODO_CHECK_ALL,
   UPDATE_TITLE_TODO_ITEM,
 } from '../type';
 
@@ -59,7 +59,7 @@ export const todoReducer = (state = initialState, action: any) => {
         ],
       };
 
-    case FILTER_CHECK_ALL:
+    case TODO_CHECK_ALL:
       const checkAllTodos = state.items.every((item) => item.done === true);
       return {
         ...state,

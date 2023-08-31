@@ -4,9 +4,9 @@ import {
   ADD_TODO_ITEM,
   CLEAR_COMPLETED_ITEM,
   DELETE_ITEM,
-  FILTER_CHECK_ALL,
   FILTER_STATUS_CHANGE,
   MAKE_TODO_COMPLETED,
+  TODO_CHECK_ALL,
   UPDATE_TITLE_TODO_ITEM,
 } from './type';
 
@@ -54,6 +54,6 @@ export const filterStatusChange = (tab: Tabs) => {
 
 export const filterCheckAll = () => {
   return {
-    type: FILTER_CHECK_ALL,
+    type: TODO_CHECK_ALL,
   };
 };
